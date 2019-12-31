@@ -1,0 +1,29 @@
+name: cd
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  cd:
+    name: cd
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-go@v1
+      with:
+        go-version: '1.12'
+
+    - name: build
+      run: |
+        VER=$(echo ${GITHUB_REF} | cut -d'/' -f3 | sed 's/v//g')
+        make build VERSION=$VER
+
+    - name: publish
+      uses: softprops/action-gh-release@v1
+      with:
+        files: bepatient
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
