@@ -1,9 +1,6 @@
 VERSION=0.1.0
 BINARY_NAME=bepatient
 
-GOPATH=$(shell pwd)/vendor:$(shell pwd)
-GOBIN=$(shell pwd)/bin
-
 GOCMD=go
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
@@ -20,7 +17,7 @@ build_linux:
 
 test: 
 	$(GOGET) gotest.tools/gotestsum
-	GOPATH=$(GOPATH) GOBIN=$(GOBIN) $(GOTEST) --format short-verbose
+	$(GOTEST) --format short-verbose
 
 clean: 
 	$(GOCLEAN)

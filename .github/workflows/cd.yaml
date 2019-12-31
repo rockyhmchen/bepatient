@@ -16,10 +16,16 @@ jobs:
       with:
         go-version: '1.12'
 
+    - name: set GOPATH
+      run: |
+        echo "##[set-env name=GOPATH;]$(dirname $GITHUB_WORKSPACE)"
+        echo "##[add-path]$(dirname $GITHUB_WORKSPACE)/bin"
+      shell: bash
+
     - name: build
       run: |
         VER=$(echo ${GITHUB_REF} | cut -d'/' -f3 | sed 's/v//g')
-        make build VERSION=$VER
+        make build_linux VERSION=$VER
 
     - name: publish
       uses: softprops/action-gh-release@v1
