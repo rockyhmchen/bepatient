@@ -8,4 +8,4 @@ bepatient
 ```
 
 ### TODO
-- Increase the test coverage
+- Increase test coverage
